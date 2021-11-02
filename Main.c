@@ -80,18 +80,30 @@ void UserDelete () {
     char Email[50];
     char Password[50];
     char fill [50];
+    char fill2 [50];
+    int count = 0;
+    int line = 0;
+    char fill3 [50];
     printf("Enter your Email: \n");
     scanf("%s", Email);
     printf("\n Enter your Password \n");
     scanf("%s", Password);
     FILE *Database = fopen("Fortrolig Database", "r+");
-    while (fscanf(Database,"%s", fill) == 1){
-        if(strstr(fill, Email)!=0){
-           printf("Email found");
+    while ((fscanf(Database,"%s", fill) == 1) && (fscanf(Database,"%s", fill2) == 1)) {
+        count ++;
+        if((strstr(fill, Email)!=0) && (strstr(fill2, Password)!=0)){
+            FILE *Database2 = fopen("Midlertidig Database", "w");
+          /* while (fgets(fill3, 50, Database2)!= NULL){      //while loop never returns true, fix
+               printf("Help");
+               line ++;
+               if (count != line){
+                    fputs(fill3, Database2);
+                    fclose(Database2);
+                    fclose(Database);
+               } */
+
+           }
+           
+           } 
         }
 
-
-    }
-
-
-}
