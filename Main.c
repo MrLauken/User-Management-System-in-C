@@ -61,7 +61,7 @@ void RegisterUser () {
     printf("\n \n \n \n \n \n \n \n \n \n Email: %s \n \n Please select a password: \n", Email);
     scanf("%s", Password);
     Database = fopen("Fortrolig Database", "a+");
-    fprintf(Database,"\n \n %s", Email);
+    fprintf(Database,"\n %s", Email);
     fprintf(Database,"\n %s", Password);
     fclose(Database);
     /* char CribbedPassword = Crypto(Password);
@@ -89,21 +89,27 @@ void UserDelete () {
     printf("\n Enter your Password \n");
     scanf("%s", Password);
     FILE *Database = fopen("Fortrolig Database", "r+");
+    FILE *Database2 = fopen("Midlertidig Database", "w");
     while ((fscanf(Database,"%s", fill) == 1) && (fscanf(Database,"%s", fill2) == 1)) {
         count ++;
         if((strstr(fill, Email)!=0) && (strstr(fill2, Password)!=0)){
-            FILE *Database2 = fopen("Midlertidig Database", "w");
-          /* while (fgets(fill3, 50, Database2)!= NULL){      //while loop never returns true, fix
-               printf("Help");
+            while (fgets(fill3, 50, Database)!= NULL){      //while loop doesnt start at top, but at found value
                line ++;
                if (count != line){
-                    fputs(fill3, Database2);
-                    fclose(Database2);
-                    fclose(Database);
-               } */
+                    printf("%s", fill3);
+                    fprintf(Database2, fill3);
+               } 
 
            }
-           
-           } 
-        }
+        
+           }
+    }
+    if (line>0){
+        fclose(Database2);
+        fclose(Database);
+        remove("Fortrolig Database");
+        rename("Midlertidig Database", "Fortrolig Database");
+    }
+} 
+    
 
