@@ -38,12 +38,10 @@ int main() {
                 break;
             case 9:
                 Top:
-                    path = applicationQuit();
-                    printf("%i", path);
-                    if (path == 1){
+                    if (applicationQuit() == 1){
                         goto Exit;
                     }
-                    if (path == 2) {
+                    else if (applicationQuit() == 2) {
                         goto jump; 
                     }
                     else {
@@ -138,6 +136,7 @@ int applicationQuit() {   //Denne funksjonen krasjer på input 4 some unknown re
     printf("\n\n\n\n\n\n\n\n\n\n\n\n Are you sure you want to quit? \n");
     printf("Press 1 for yes, and 2 for no \n");
     scanf("%i", answer);
+    printf("\n%i",answer);
     return answer;
     }
 
