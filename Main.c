@@ -4,9 +4,8 @@
 #include <limits.h>
 
     void RegisterUser ();
-   // int Crypto(char Password[50]);
     void UserDelete ();
-    // void UserEdit ();
+    void UserEdit ();
     int applicationQuit(); 
 
 
@@ -29,26 +28,29 @@ int main() {
                 goto jump;
                 break;
             case 2:
-                //UserEdit ();
-                printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Error, Path not yet coded \n");
+                UserEdit ();
                 goto jump;
                 break;
             case 3:
                 UserDelete();
+                printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                 goto jump;
                 break;
             case 9:
-                Top:
-                    if (applicationQuit() == 1){
-                        goto Exit;
-                    }
-                    else if (applicationQuit() == 2) {
-                        goto jump; 
-                    }
-                    else {
-                        printf("\n Invalid input, try again");
-                        goto Top;
-                    }
+            Top:
+                path = applicationQuit();
+                if (path == 1){
+                    goto Exit;
+                }
+                else if (path == 2) {
+                    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    goto jump; 
+                }
+                else {
+                    printf("\n Invalid input, try again");
+                    goto Top;
+                }
+                
             default:
                 printf("\n Invalid input \n");
                 printf("Press 1 for new user \n");
@@ -78,17 +80,8 @@ void RegisterUser () {
     fprintf(Database,"\n%s", Email);
     fprintf(Database,"\n%s", Password);
     fclose(Database);
-    /* char CribbedPassword = Crypto(Password);
-     StorinUnit(Email, CribbedPassword); */
 }
-/*
-int Crypto(char Password[50]) {
-    for (int i=0; i<=50; i++) {
-        Password[i]= Password[i]*2;
-    }
-    return Password[50];
-}
-*/
+
 
 void UserDelete () {
     char Email[50];
@@ -108,7 +101,7 @@ void UserDelete () {
         count ++;
         if((strstr(fill, Email)!=0) && (strstr(fill2, Password)!=0)){
             rewind(Database);
-            while (fgets(fill3, 50, Database)!= NULL){      //while loop doesnt start at top, but at found value
+            while (fgets(fill3, 50, Database)!= NULL){     
                line ++;
                if ((count != line) &&  (count+1 != line)) {
                     printf("%s", fill3);
@@ -132,15 +125,95 @@ void UserDelete () {
     }
 } 
 
-int applicationQuit() {   //Denne funksjonen krasjer på input 4 some unknown reason
-    int answer;
+int applicationQuit() {   
+    int p;
     printf("\n\n\n\n\n\n\n\n\n\n\n\n Are you sure you want to quit? \n");
     printf("Press 1 for yes, and 2 for no \n");
-    scanf("%i", answer);
-    printf("\n%i",answer);
-    return answer;
+    scanf("%i", &p);
+    return p;
     }
 
-    
+void UserEdit() {
+    char Email[50];
+    char Password[50];
+    char Email2[50];
+    char Password2[50];
+    char fill [50];
+    char fill2 [50];
+    int count = 1;
+    int line = 0;
+    char fill3 [50];
+    int p;
+    printf("Enter your Email: \n");
+    scanf("%s", Email);
+    printf("\n Enter your Password \n");
+    scanf("%s", Password);
+    FILE *Database = fopen("Fortrolig Database", "r+");
+    FILE *Database2 = fopen("Midlertidig Database", "w");
+    while ((fscanf(Database,"%s", fill) == 1) && (fscanf(Database,"%s", fill2) == 1)) {
+        count ++;
+        if((strstr(fill, Email)!=0) && (strstr(fill2, Password)!=0)){
+            VanHalen:
+                printf("What personal information do you want to edit? \n");
+                printf("Enter 1 for email, enter 2 for password \n");
+                scanf("%i",&p);
+                if (p==1){
+                    printf("Select your new email below: \n");
+                    scanf("%s", Email2);
+                    rewind(Database);
+                    while (fgets(fill3, 50, Database)!= NULL){      
+                        line ++;
+                        if (count != line) {
+                            fprintf(Database2, fill3);
+                         } 
+                        else if (count == line-1){
+                            fprintf(Database2, "\n");
+                        }
+                        else if (count == line) {
+                            fprintf(Database2, "%s\n", Email2);
+                        }
+                        }
+                }
+                else if (p==2){
+                    printf("Select your new password below: \n");
+                    scanf("%s", Password2);
+                    rewind(Database);
+                    while (fgets(fill3, 50, Database)!= NULL){      
+                        line ++;
+                        if (count != line-1) {
+                            fprintf(Database2, fill3);
+                         } 
+                        else if (count == line-2){
+                            fprintf(Database2, "\n");
+                        }
+                        else if (count == line-1) {
+                            fprintf(Database2, "%s\n", Password2);
+                        }
+                    }
+                }
+                else {
+                    printf("Invalid input \n");
+                    goto VanHalen;
+            }
 
+
+        }
+        }
+
+
+
+    if (line>0){
+        fclose(Database2);
+        fclose(Database);
+        remove("Fortrolig Database");
+        rename("Midlertidig Database", "Fortrolig Database");
+    }
+    else {
+        fclose(Database2);
+        fclose(Database);
+        remove("Midlertidig Database");
+    }
+
+
+}
     
