@@ -4,7 +4,7 @@
 #include <limits.h>
 
     void RegisterUser ();
-    void UserDelete ();    //please work now
+    void UserDelete ();    
     void UserEdit ();
     int applicationQuit(); 
 
