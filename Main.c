@@ -107,7 +107,7 @@ void UserDelete () {
     char Password[50];
     char fill [50];
     char fill2 [50];
-    int count = 1;
+    int count = 0;
     int line = 0;
     char fill3 [50];
     printf("Enter your Email: \n");
@@ -117,9 +117,10 @@ void UserDelete () {
     FILE *Database = fopen("Fortrolig Database", "r+");
     FILE *Database2 = fopen("Midlertidig Database", "w");
     while ((fscanf(Database,"%s", fill) == 1) && (fscanf(Database,"%s", fill2) == 1)) {
-        count ++;
+        count++;
         if((strstr(fill, Email)!=0) && (strstr(fill2, Password)!=0)){
             rewind(Database);
+            count=count*2-1;
             while (fgets(fill3, 50, Database)!= NULL){     
                line ++;
                if ((count != line) &&  (count+1 != line)) {
@@ -163,7 +164,7 @@ void UserEdit() {
     char Password2[50];
     char fill [50];
     char fill2 [50];
-    int count = 1;
+    int count = 0;
     int line = 0;
     char fill3 [50];
     int p;
@@ -178,6 +179,7 @@ void UserEdit() {
     while ((fscanf(Database,"%s", fill) == 1) && (fscanf(Database,"%s", fill2) == 1)) {
         count ++;
         if((strstr(fill, Email)!=0) && (strstr(fill2, Password)!=0)){
+            count=count*2-1;
             VanHalen:
                 Timeget();
                 printf("What personal information do you want to edit? \n");
