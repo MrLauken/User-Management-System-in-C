@@ -4,6 +4,7 @@
 #include <limits.h>
 #include <Windows.h>
 #include <time.h>
+#include <conio.h>
 
     void RegisterUser ();
     void UserDelete ();    
@@ -19,8 +20,8 @@ int main() {
     printf("Welcome to GreenhatAI ");
     Sleep(5000);
     jump:
+    system("cls");
     Timeget();
-    printf(" \n \n \n \n \n \n \n");
     printf("Choose your course of action \n");
     printf("Press 1 for new user \n");
     printf("Press 2 to edit already existing user \n");
@@ -33,24 +34,33 @@ int main() {
             case 1: 
                 Timeget();
                 RegisterUser();
-                printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n New user successfully registered \n");
+                system("cls");
+                Timeget();
+                printf("\n New user successfully registered \n");
+                Sleep(2500);
+                system("cls");
                 goto jump;
                 break;
             case 2:
+                system("cls");
                 Timeget();
                 UserEdit ();
+                system("cls");
                 goto jump;
                 break;
             case 3:
+                system("cls");
                 Timeget();
                 UserDelete();
-                printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                system("cls");
                 goto jump;
                 break;
             case 9:
             Top:
+                system("cls");
                 Timeget();
                 path = applicationQuit();
+                system("cls");
                 if (path == 1){
                     Timeget();
                     goto Exit;
@@ -62,19 +72,11 @@ int main() {
                 else {
                     Timeget();
                     printf("\n Invalid input, try again");
+                    Sleep(2500);
                     goto Top;
                 }
                 
             default:
-                Sleep(500);
-                Timeget();
-                Sleep(200);
-                printf("\n Invalid input \n");
-                printf("Press 1 for new user \n");
-                printf("Press 2 to edit already existing user \n");
-                printf("Press 3 to delete your account \n");
-                printf("Press 9 to quit application \n");
-                Sleep(200);
                 goto jump;
                 break;
     }
@@ -92,6 +94,7 @@ void RegisterUser () {
     printf("User registration: \n \n Hello ... and welcome to GreenhatAI \n");
     printf("\n \n Start your registration by typing your Email: \n");
     scanf("%s", Email);
+    system("cls");
     Timeget();
     printf("\n Email: %s \n \n Please select a password: \n", Email);
     scanf("%s", Password);
@@ -137,21 +140,27 @@ void UserDelete () {
         fclose(Database);
         remove("Fortrolig Database");
         rename("Midlertidig Database", "Fortrolig Database");
+        system("cls");
         Timeget();
         printf("Your user has been succesfully deleted");
+        Sleep(2500);
     }
     else {
         fclose(Database2);
         fclose(Database);
         remove("Midlertidig Database");
+        system("cls");
         Timeget();
         printf("Wrong email or password");
+        Sleep(2500);
     }
+    system("cls");
 } 
 
 int applicationQuit() {   
     int p;
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n Are you sure you want to quit? \n");
+    system("cls");
+    printf("Are you sure you want to quit? \n");
     printf("Press 1 for yes, and 2 for no \n");
     scanf("%i", &p);
     return p;
@@ -181,11 +190,13 @@ void UserEdit() {
         if((strstr(fill, Email)!=0) && (strstr(fill2, Password)!=0)){
             count=count*2-1;
             VanHalen:
+                system("cls");
                 Timeget();
                 printf("What personal information do you want to edit? \n");
                 printf("Enter 1 for email, enter 2 for password \n");
                 scanf("%i",&p);
                 if (p==1){
+                    system("cls");
                     Timeget();
                     printf("Select your new email below: \n");
                     scanf("%s", Email2);
@@ -204,6 +215,7 @@ void UserEdit() {
                         }
                 }
                 else if (p==2){
+                    system("cls");
                     Timeget();
                     printf("Select your new password below: \n");
                     scanf("%s", Password2);
@@ -222,8 +234,10 @@ void UserEdit() {
                     }
                 }
                 else {
+                    system("cls");
                     Timeget();
                     printf("Invalid input \n");
+                    Sleep(2500);
                     goto VanHalen;
             }
 
@@ -254,5 +268,6 @@ void Timeget(){
     struct tm * timeinfo;
     time ( &rawtime );
     timeinfo = localtime ( &rawtime );
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                                               %s", asctime(timeinfo) );
+    system("cls");
+    printf("                                               %s", asctime(timeinfo) );
 }
