@@ -11,6 +11,9 @@
     void UserEdit ();
     int applicationQuit(); 
     void Timeget();
+    void Companylogo();
+    
+
 
 
 int main() {
@@ -18,7 +21,8 @@ int main() {
     int a = 1;
     Timeget();
     printf("Welcome to GreenhatAI ");
-    Sleep(5000);
+    Companylogo();
+    Sleep(4500);
     jump:
     system("cls");
     Timeget();
@@ -179,7 +183,7 @@ void UserEdit() {
     int p;
     time_t rawtime;
     Timeget();
-    printf("Enter your Email: \n");
+    printf("\n \n \n \n \n Enter your Email: \n");
     scanf("%s", Email);
     printf("\n Enter your Password \n");
     scanf("%s", Password);
@@ -271,3 +275,34 @@ void Timeget(){
     system("cls");
     printf("                                               %s", asctime(timeinfo) );
 }
+
+void Companylogo(){
+    printf("\n  ____________________ ");
+    Sleep(100);
+    printf("\n  |                  |");
+    Sleep(100);
+    printf("\n  |                  |");
+    Sleep(100);
+    printf("\n  |                  |");
+    Sleep(100);
+    printf("\n  |__________________|");
+    Sleep(100);
+    printf("\n  |    GreenhatAI    |");
+    Sleep(100);
+    printf("\n ----------------------");
+    Sleep(100);
+    printf("\n     ___       ___             ");
+    Sleep(100);
+    printf("\n    | I |     | I |           ");
+    Sleep(100);
+    printf("\n     ---       ---         ");
+    Sleep(100);
+    printf("\n                          "); 
+    Sleep(100);
+    printf("\n      ==========                  "); 
+    Sleep(100);
+    printf("\n      ||||||||||            ");
+    Sleep(100);
+    printf("\n      ==========           ");
+}
+
