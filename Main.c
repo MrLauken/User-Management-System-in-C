@@ -261,6 +261,9 @@ void UserEdit() {
         fclose(Database2);
         fclose(Database);
         remove("Midlertidig Database");
+        system("cls");
+        printf("Wrong email or password, please try again");
+        Sleep(2500);
     }
 
 
