@@ -9,15 +9,16 @@
     void RegisterUser ();
     void UserDelete ();    
     void UserEdit ();
-    int applicationQuit(); 
+    char applicationQuit(); 
     void Timeget();
     void Companylogo();
+    void invalidInput();
     
 
 
 
 int main() {
-    int k, path;
+    int k, path, p;
     int a = 1;
     Timeget();
     printf("Welcome to GreenhatAI ");
@@ -32,6 +33,7 @@ int main() {
     printf("Press 3 to delete your account \n");
     printf("Press 9 to quit application \n");
     Sleep(200);
+    a=1;
     while (a==1){ 
         scanf("%d",&k);
         switch (k) {
@@ -60,7 +62,6 @@ int main() {
                 goto jump;
                 break;
             case 9:
-            Top:
                 system("cls");
                 Timeget();
                 path = applicationQuit();
@@ -73,11 +74,9 @@ int main() {
                     Timeget();
                     goto jump; 
                 }
-                else {
-                    Timeget();
-                    printf("\n Invalid input, try again");
-                    Sleep(2500);
-                    goto Top;
+                else if ((path != 1) || (path != 2)) {
+                    invalidInput();
+                    goto jump;
                 }
                 
             default:
@@ -161,12 +160,12 @@ void UserDelete () {
     system("cls");
 } 
 
-int applicationQuit() {   
-    int p;
+char applicationQuit() {   
+    char p;
     system("cls");
     printf("Are you sure you want to quit? \n");
     printf("Press 1 for yes, and 2 for no \n");
-    scanf("%i", &p);
+    scanf("%d", &p);
     return p;
     }
 
@@ -238,10 +237,7 @@ void UserEdit() {
                     }
                 }
                 else {
-                    system("cls");
-                    Timeget();
-                    printf("Invalid input \n");
-                    Sleep(2500);
+                    invalidInput();
                     goto VanHalen;
             }
 
@@ -309,3 +305,9 @@ void Companylogo(){
     printf("\n      ==========           ");
 }
 
+void invalidInput () {
+    Timeget();
+    printf("\n Invalid input, try again");
+    Sleep(3000);
+    system("cls");
+}
