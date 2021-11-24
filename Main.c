@@ -130,7 +130,6 @@ void UserDelete () {
             while (fgets(fill3, 50, Database)!= NULL){     
                line ++;
                if ((count != line) &&  (count+1 != line)) {
-                    printf("%s", fill3);
                     fprintf(Database2, fill3);
                } 
 
