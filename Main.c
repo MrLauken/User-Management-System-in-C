@@ -13,6 +13,7 @@
     void Timeget();
     void Companylogo();
     void invalidInput();
+    void Creditscreen();
     
 
 
@@ -31,11 +32,12 @@ int main() {
     printf("Press 1 for new user \n");
     printf("Press 2 to edit already existing user \n");
     printf("Press 3 to delete your account \n");
+    printf("Press 4 to view the creditscreen \n");
     printf("Press 9 to quit application \n");
     Sleep(200);
     a=1;
     while (a==1){ 
-        scanf("%d",&k);
+        scanf("%i",&k);
         switch (k) {
             case 1: 
                 Timeget();
@@ -61,6 +63,12 @@ int main() {
                 system("cls");
                 goto jump;
                 break;
+            case 4:
+                system("cls");
+                Timeget();
+                Creditscreen();
+                goto jump;
+                break;
             case 9:
                 system("cls");
                 Timeget();
@@ -80,6 +88,7 @@ int main() {
                 }
                 
             default:
+                invalidInput();
                 goto jump;
                 break;
     }
@@ -153,7 +162,7 @@ void UserDelete () {
         remove("Midlertidig Database");
         system("cls");
         Timeget();
-        printf("Wrong email or password");
+        perror("Wrong email or password");
         Sleep(2500);
     }
     system("cls");
@@ -302,11 +311,55 @@ void Companylogo(){
     printf("\n      ||||||||||            ");
     Sleep(100);
     printf("\n      ==========           ");
+    printf(" .");
+    Sleep(20);
+    printf(" .");
+    Sleep(250);
+    printf(" .");
+    Sleep(313);
+    printf(" .");
+    Sleep(350);
+    printf(" .");
+    Sleep(100);
 }
 
 void invalidInput () {
     Timeget();
-    printf("\n Invalid input, try again");
+    perror(" \n Input not defined");
     Sleep(3000);
     system("cls");
 }
+
+void Creditscreen() {
+    Companylogo();
+    for (int i = 0; i<5; i++){
+    printf("\n");
+    Sleep(500);
+    }
+    printf("Senior Programmer: Henrik Alexander Sortaasloekken");
+    Sleep(500);
+    printf("\nJunior Programmer: Elias Maarvad Oevstegaard");
+    Sleep(500);
+    printf("\nLeader of Cryptographical studies: Elias Maarvad Oevstegaard");
+    Sleep(500);
+    printf("\nProject Leader: Henrik Alexander Sortaasloekken");
+    Sleep(500);
+    printf("\nCredible partners: stackoverflow.com");
+    Sleep(500);
+    printf("\n                   tutorialspoint.com");
+    Sleep(500);
+    printf("\n                   geeksforgeeks.org");
+    Sleep(500);
+    for (int i = 0; i<5; i++){
+    printf("\n");
+    Sleep(500);
+    }
+    printf("\nSupport future projects by donating to +47 47340041 with vipps");
+    Sleep(500);
+    printf("\nThank You!");
+    Sleep(1000);
+    Sleep(5000);
+    Timeget();
+    Companylogo();
+}
+

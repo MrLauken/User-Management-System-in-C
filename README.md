@@ -8,3 +8,5 @@ Mårvad alertness-test, skriv "ja" på streken med gjeldende dato og tidspunkt n
 
 
 .......................................
+
+#SvaktSålangtAss
