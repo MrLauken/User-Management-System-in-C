@@ -6,6 +6,9 @@
 #include <time.h>
 #include <conio.h>
 
+    int RememberUsername(char *Email);
+    const char* Login();
+    int Logout();
     void RegisterUser ();
     void UserDelete ();    
     void UserEdit ();
@@ -19,8 +22,11 @@
 
 
 int main() {
+    const char *shit;
     int k, path, p;
     int a = 1;
+    int L = 0; 
+    char Email[255];
     Timeget();
     printf("Welcome to GreenhatAI ");
     Companylogo();
@@ -28,11 +34,21 @@ int main() {
     jump:
     system("cls");
     Timeget();
-    printf("Choose your course of action \n");
+    if (L==1){
+        printf("User: %s", Email);
+    }
+
+    printf("\nChoose your course of action \n");
     printf("Press 1 for new user \n");
     printf("Press 2 to edit already existing user \n");
     printf("Press 3 to delete your account \n");
     printf("Press 4 to view the creditscreen \n");
+    if (L==1){
+    printf("Press 5 to logout \n");
+    }
+    else{
+    printf("Press 5 to login \n");
+    }
     printf("Press 9 to quit application \n");
     Sleep(200);
     a=1;
@@ -68,6 +84,34 @@ int main() {
                 Timeget();
                 Creditscreen();
                 goto jump;
+                break;
+            case 5:
+                if (L==0){
+                    system("cls");
+                    Timeget();
+                    shit = Login();
+                    if (shit!=0){
+                        strncpy(Email, shit, 200);
+                        L=1;
+                    }
+                    goto jump;
+                }
+                else if (L==1){
+                    char z;
+                    system("cls");
+                    Timeget();
+                    printf("Are you sure you want to log out?\n");
+                    printf("Press 1 for yes\n");
+                    printf("Press 2 for no\n");
+                    scanf("%", &z);
+                    if (z==1){
+                    L=0;
+                    }
+                    else if ((z!=1) && (z!=2)){
+                        invalidInput();
+                    }
+                    goto jump;
+                }
                 break;
             case 9:
                 system("cls");
@@ -188,9 +232,8 @@ void UserEdit() {
     int line = 0;
     char fill3 [50];
     int p;
-    time_t rawtime;
     Timeget();
-    printf("\n \n \n \n \n Enter your Email: \n");
+    printf("\nEnter your Email: \n");
     scanf("%s", Email);
     printf("\n Enter your Password \n");
     scanf("%s", Password);
@@ -336,30 +379,56 @@ void Creditscreen() {
     printf("\n");
     Sleep(500);
     }
-    printf("Senior Programmer: Henrik Alexander Sortaasloekken");
-    Sleep(500);
-    printf("\nJunior Programmer: Elias Maarvad Oevstegaard");
-    Sleep(500);
-    printf("\nLeader of Cryptographical studies: Elias Maarvad Oevstegaard");
-    Sleep(500);
-    printf("\nProject Leader: Henrik Alexander Sortaasloekken");
-    Sleep(500);
+    printf("\nHenrik Alexander Sortaasloekken");
+    Sleep(1500);
+    printf("\nElias Maarvad Oevstegaard");
+    Sleep(1500);
     printf("\nCredible partners: stackoverflow.com");
-    Sleep(500);
+    Sleep(1500);
     printf("\n                   tutorialspoint.com");
-    Sleep(500);
+    Sleep(1500);
     printf("\n                   geeksforgeeks.org");
-    Sleep(500);
+    Sleep(1500);
     for (int i = 0; i<5; i++){
     printf("\n");
-    Sleep(500);
+    Sleep(1500);
     }
     printf("\nSupport future projects by donating to +47 47340041 with vipps");
-    Sleep(500);
+    Sleep(1500);
     printf("\nThank You!");
-    Sleep(1000);
+    Sleep(2000);
     Sleep(5000);
     Timeget();
     Companylogo();
 }
 
+const char* Login () {
+    int p=0;
+    char Email[255];
+    char Password[255];
+    char fill[255];
+    char fill2[255];
+    printf("Login: \n");
+    printf("Please enter your email below: \n");
+    scanf("%s", Email);
+    printf("\n Enter your Password \n");
+    scanf("%s", Password);
+    FILE *Database = fopen("Fortrolig Database", "r+");
+    while ((fscanf(Database,"%s", fill) != 0) && (fscanf(Database,"%s", fill2) != 0)) {
+        if((strstr(fill, Email)!=0) && (strstr(fill2, Password)!=0)){
+            p=2;
+            system("cls");
+            printf("\n Welcome back %s!", Email);
+            Sleep(3000);
+            char *papa = Email;
+            return papa;
+    
+        }
+    }
+    if (p==0){
+        printf("\nFeil Passord retard!");
+        Sleep(2500);
+        return 0;  }  
+
+        
+}
