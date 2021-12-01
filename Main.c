@@ -17,7 +17,7 @@
     void Companylogo();
     void invalidInput();
     void Creditscreen();
-    
+   unsigned long hash(unsigned char *str);
 
 
 
@@ -146,17 +146,22 @@ int main() {
 void RegisterUser () {
     FILE *Database;
     char Email [50];
-    char Password [50]; 
+      char var[50];
+      char passord55[50];
     printf("User registration: \n \n Hello ... and welcome to GreenhatAI \n");
     printf("\n \n Start your registration by typing your Email: \n");
     scanf("%s", Email);
     system("cls");
     Timeget();
     printf("\n Email: %s \n \n Please select a password: \n", Email);
-    scanf("%s", Password);
+   scanf("%s",var);
+      char *lek= var;
+	long passordH = hash(lek);
+sprintf(passord55, "%ld", passordH);
     Database = fopen("Fortrolig Database", "a+");
     fprintf(Database,"\n%s", Email);
-    fprintf(Database,"\n%s", Password);
+    fprintf(Database,"\n%s", passord55);
+    Sleep(1000);
     fclose(Database);
 }
 
@@ -172,12 +177,17 @@ void UserDelete () {
     printf("Enter your Email: \n");
     scanf("%s", Email);
     printf("\n Enter your Password \n");
-    scanf("%s", Password);
+   char var[50];
+   scanf("%s",var);
+      char *lek= var;
+	long passordH = hash(lek);
+    char passord55[50];
+    sprintf(passord55, "%ld", passordH);
     FILE *Database = fopen("Fortrolig Database", "r+");
     FILE *Database2 = fopen("Midlertidig Database", "w");
     while ((fscanf(Database,"%s", fill) == 1) && (fscanf(Database,"%s", fill2) == 1)) {
         count++;
-        if((strstr(fill, Email)!=0) && (strstr(fill2, Password)!=0)){
+        if((strstr(fill, Email)!=0) && (strstr(fill2, passord55)!=0)){
             rewind(Database);
             count=count*2-1;
             while (fgets(fill3, 50, Database)!= NULL){     
@@ -232,16 +242,21 @@ void UserEdit() {
     int line = 0;
     char fill3 [50];
     int p;
+    char var[50];
+    char passord55[50];
     Timeget();
     printf("\nEnter your Email: \n");
     scanf("%s", Email);
     printf("\n Enter your Password \n");
-    scanf("%s", Password);
+   scanf("%s",var);
+      char *lek= var;
+	long passordH = hash(lek);
+    sprintf(passord55, "%ld", passordH);
     FILE *Database = fopen("Fortrolig Database", "r+");
     FILE *Database2 = fopen("Midlertidig Database", "w");
     while ((fscanf(Database,"%s", fill) == 1) && (fscanf(Database,"%s", fill2) == 1)) {
         count ++;
-        if((strstr(fill, Email)!=0) && (strstr(fill2, Password)!=0)){
+        if((strstr(fill, Email)!=0) && (strstr(fill2, passord55)!=0)){
             count=count*2-1;
             VanHalen:
                 system("cls");
@@ -272,7 +287,12 @@ void UserEdit() {
                     system("cls");
                     Timeget();
                     printf("Select your new password below: \n");
-                    scanf("%s", Password2);
+                    char var[50];
+                     scanf("%s",var);
+                       char *lek= var;
+	                long passordH = hash(lek);
+                    char passord55[50];
+                    sprintf(passord55, "%ld", passordH);
                     rewind(Database);
                     while (fgets(fill3, 50, Database)!= NULL){      
                         line ++;
@@ -283,7 +303,7 @@ void UserEdit() {
                             fprintf(Database2, "\n");
                         }
                         else if (count == line-1) {
-                            fprintf(Database2, "%s\n", Password2);
+                            fprintf(Database2, "%s\n", passord55);
                         }
                     }
                 }
@@ -405,17 +425,22 @@ void Creditscreen() {
 const char* Login () {
     int p=0;
     char Email[255];
-    char Password[255];
     char fill[255];
+    char passord55[50];
+    char var[50];
     char fill2[255];
     printf("Login: \n");
     printf("Please enter your email below: \n");
     scanf("%s", Email);
     printf("\n Enter your Password \n");
-    scanf("%s", Password);
+   scanf("%s",var);
+      char *lek= var;
+	long passordH = hash(lek);
+sprintf(passord55, "%ld", passordH);
+printf("%s",passord55);
     FILE *Database = fopen("Fortrolig Database", "r+");
     while ((fscanf(Database,"%s", fill) != 0) && (fscanf(Database,"%s", fill2) != 0)) {
-        if((strstr(fill, Email)!=0) && (strstr(fill2, Password)!=0)){
+        if((strstr(fill, Email)!=0) && (strstr(fill2, passord55)!=0)){
             p=2;
             system("cls");
             printf("\n Welcome back %s!", Email);
@@ -432,3 +457,13 @@ const char* Login () {
 
         
 }
+unsigned long hash(unsigned char *str)
+{
+	unsigned long hash = 5383;
+	int c;
+	while (c= *str++){
+		hash = ((hash<<5) +hash)+c;
+    }
+	return hash;
+}
+
