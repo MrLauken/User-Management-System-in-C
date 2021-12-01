@@ -103,7 +103,7 @@ int main() {
                     printf("Are you sure you want to log out?\n");
                     printf("Press 1 for yes\n");
                     printf("Press 2 for no\n");
-                    scanf("%", &z);
+                    scanf("%i", &z);
                     if (z==1){
                     L=0;
                     }
@@ -146,21 +146,33 @@ int main() {
 void RegisterUser () {
     FILE *Database;
     char Email [50];
-      char var[50];
-      char passord55[50];
+    char var[50];
+    char passord55[50];
+    int size;
     printf("User registration: \n \n Hello ... and welcome to GreenhatAI \n");
-    printf("\n \n Start your registration by typing your Email: \n");
+    printf("\n \n Start your registration by typing your Email: (spaces and special characters is not permitted) \n");
     scanf("%s", Email);
     system("cls");
     Timeget();
     printf("\n Email: %s \n \n Please select a password: \n", Email);
-   scanf("%s",var);
-      char *lek= var;
+    scanf("%s",var);
+    char *lek= var;
 	long passordH = hash(lek);
-sprintf(passord55, "%ld", passordH);
+    sprintf(passord55, "%ld", passordH);
     Database = fopen("Fortrolig Database", "a+");
-    fprintf(Database,"\n%s", Email);
-    fprintf(Database,"\n%s", passord55);
+    if (NULL != Database) {
+    fseek (Database, 0, SEEK_END);
+    size = ftell(Database);
+        if (0 == size) {
+            fprintf(Database,"%s", Email);
+            fprintf(Database,"\n%s", passord55);
+         }
+        else {
+            fprintf(Database,"\n%s", Email);
+            fprintf(Database,"\n%s", passord55);
+
+        }
+    }
     Sleep(1000);
     fclose(Database);
 }
@@ -282,6 +294,9 @@ void UserEdit() {
                             fprintf(Database2, "%s\n", Email2);
                         }
                         }
+
+            
+
                 }
                 else if (p==2){
                     system("cls");
@@ -306,8 +321,12 @@ void UserEdit() {
                             fprintf(Database2, "%s\n", passord55);
                         }
                     }
+
                 }
+            
+            
                 else {
+
                     invalidInput();
                     goto VanHalen;
             }
